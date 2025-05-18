@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Categories</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #f9f7f1, #d4e4dd);
+            color: #1A285A;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #ff7eb3, #ff758c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .table {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .page-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+        }
+        .page-item.active .page-link {
+            background-color: #ff758c;
+            border-color: #ff758c;
+        }
+        /* Tugmalarga hover effekti */
+        .btn-hover:hover {
+            transform: scale(1.1);
+            transition: 0.3s ease-in-out;
+        }
+        /* Mobil moslashuv */
+        @media (max-width: 768px) {
+            .table {
+                font-size: 14px;
+            }
+            .btn-sm {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <a href="/admin/page-get" class="btn btn-primary btn-sm dashboard-btn">← Orqaga</a>
+    <h2 class="text-center">Kitob turlari bo‘yicha kategoriyalar</h2>
+
+    <div class="table-responsive">
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th>N</th>
+                <th>Name</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category, status : ${categories}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${category.name}"></td>
+                <td class="text-center">
+                    <!-- Block Button -->
+                    <form th:action="@{/book/add/page/{id}(id=${category.id})}" method="get" class="d-inline">
+                        <button type="submit" class="btn btn-warning btn-sm mx-1 btn-hover">Kitob qo‘shish</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <form th:action="@{/auth/category/delete/{id}(id=${category.id})}" method="post" class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+                        <button type="submit" class="btn btn-danger btn-sm mx-1 btn-hover">Delete category</button>
+                    </form>
+
+                    <!-- Add button for Adding Child Category -->
+                    <form th:action="@{/auth/add/{id}(id=${category.id})}" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-warning btn-sm mx-1 btn-hover">Add Child Category</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination faqat totalPages > 0 bo'lsa ko'rsatiladi -->
+    <div th:if="${totalPages > 0}">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/category/get-list?page={p}(p=${currentPage - 1})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{/category/get-list?page={p}(p=${i})}" th:text="${i}"></a>
+                </li>
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                    <a class="page-link" th:href="@{/category/get-list?page={p}(p=${currentPage + 1})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

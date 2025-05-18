@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reklamani Boshqarish</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        .header {
+            background: linear-gradient(to right, #f97316, #3b82f6);
+            padding: 2rem;
+            border-radius: 1rem;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+        }
+
+        .header .buttons a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fff;
+            color: #111827;
+            padding: 0.625rem 0.875rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-left: 0.625rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .header .buttons a:hover {
+            background-color: #e5e7eb;
+        }
+
+        .header .buttons img {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            justify-content: center;
+            margin: 1.25rem auto;
+            max-width: 1200px;
+        }
+
+        .card.stat-card {
+            background-color: #fff;
+            color: #111827;
+            border-radius: 1rem;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card.stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+        }
+
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .delivered {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .canceled {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .tables {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 1.875rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            flex-wrap: wrap;
+        }
+
+
+        .table-container {
+            background: #fff;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-container h2 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem 0.875rem;
+            font-size: 0.875rem;
+            text-align: left;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        th {
+            background: #fef3c7;
+            font-weight: 600;
+        }
+
+        .video-table th {
+            background: #dbeafe;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.625rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            background-color: #f3f4f6;
+            color: #374151;
+            text-decoration: none;
+            padding: 0.5rem 0.875rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #e5e7eb;
+        }
+
+        .pagination .disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        .pagination .active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .tables {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cards {
+                flex-direction: column;
+            }
+        }
+
+        .icon-circle {
+            width: 3.75rem;
+            height: 3.75rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+        }
+
+        .icon-bg-blue {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+
+        .icon-bg-green {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .icon-bg-yellow {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .actions form button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .actions form button:hover {
+            opacity: 0.9;
+        }
+
+        .delete {
+            background-color: #ef4444;
+        }
+
+        .edit {
+            background-color: #f59e0b;
+        }
+
+        .view {
+            background-color: #10b981;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                font-size: 18px;
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            th, td {
+                font-size: 12px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+
+        .switch-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .toggle-btn {
+            background-color: #f3f4f6;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #e5e7eb;
+        }
+
+        .toggle-btn.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .d-none {
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Salom,<span th:text="${username}"></span></h1>
+    <h1>eKutubxona Boshqaruv Platformasi.</h1>
+</div>
+<div>
+    <h1 class="mt-3 text-center" style="font-size: 1.25rem; color: #6b7280;">
+        <span id="datetime"></span>
+    </h1>
+</div>
+
+<!--<div class="cards">
+    <div class="container mt-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card stat-card h-100" style="background-color: #e0f2fe;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="icon-circle icon-bg-blue me-3">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div>
+                            <div class="stat-title">Foydalanuvchilar soni</div>
+                            <div class="stat-value" th:text="${userCount}">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card h-100" style="background-color: #dcfce7;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="icon-circle icon-bg-green me-3">
+                            <i class="bi bi-tags-fill"></i>
+                        </div>
+                        <div>
+                            <div class="stat-title">Kategoriyalar soni</div>
+                            <div class="stat-value" th:text="${categoryCount}">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card h-100" style="background-color: #fef9c3;">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="icon-circle icon-bg-yellow me-3">
+                            <i class="bi bi-book-fill"></i>
+                        </div>
+                        <div>
+                            <div class="stat-title">Kitoblar soni</div>
+                            <div class="stat-value" th:text="${bookCount}">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!-- Bu joyni .cards dividan keyin joylashtiring -->
+<div class="switch-buttons text-left my-4">
+    <button class="toggle-btn active" onclick="showTable('users')">
+        <img src="https://cdn-icons-png.flaticon.com/128/921/921347.png" alt="Foydalanuvchilar" style="width: 16px; height: 16px; margin-right: 8px;">
+        Foydalanuvchilar
+    </button>
+
+    <button class="toggle-btn" onclick="showTable('books')">
+        <img src="https://cdn-icons-png.flaticon.com/128/5833/5833290.png" alt="Kitoblar" style="width: 16px; height: 16px; margin-right: 8px;">
+        Kitoblar
+    </button>
+
+    <!-- Kategoriyalar uchun tugma -->
+    <button class="toggle-btn" onclick="showTable('categories')">
+        <img src="https://cdn-icons-png.flaticon.com/128/14782/14782290.png" alt="Asosiy Kategoriyalar" style="width: 16px; height: 16px; margin-right: 8px;">
+        Asosiy Kategoriyalar
+    </button>
+
+
+    <!-- Kichik kategoriyalar uchun tugma -->
+    <button class="toggle-btn" onclick="showTable('child_categories')">
+        <img src="https://img.icons8.com/?size=96&id=80574&format=png" alt="Ichki Kategoriyalar" style="width: 16px; height: 16px; margin-right: 8px;">
+        Ichki Kategoriyalar
+    </button>
+
+
+</div>
+
+
+<div class="tables">
+    <!-- Foydalanuvchilar ro`yxati -->
+    <div id="users-table" class="table-container">
+        <h2 class="mt-3 text-center">Foydalanuvchilar</h2>
+        <div th:if="${userCount == 0}" class="text-center text-gray-500">
+            <p>Hozirda foydalanuvchilar mavjud emas.</p>
+        </div>
+        <table th:if="${userCount > 0}">
+            <thead>
+            <tr>
+                <th>N</th>
+                <th>Familiya</th>
+                <th>Ism</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Amal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user,status : ${users}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${user.lastName}">Familiya</td>
+                <td th:text="${user.firstName}">Ism</td>
+                <td th:text="${user.email}">Email</td>
+                <td>
+                    <span th:class="${user.active} ? 'status delivered' : 'status canceled'">
+                        <span th:text="${user.active} ? 'Faol' : 'Bloklangan'">Status</span>
+                    </span>
+                </td>
+                <td class="actions">
+                    <!-- Delete -->
+                    <form th:action="@{/current/user/delete/{id}(id=${user.id})}" method="post"
+                          onsubmit="return confirm('Foydalanuvchini o‘chirishga ishonchingiz komilmi?');">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="delete"><i class="fas fa-trash-alt"></i> O‘chirish</button>
+                    </form>
+
+                    <!-- Block -->
+                    <form th:if="${user.active}" th:action="@{/current/user/block/{id}(id=${user.id})}" method="post"
+                          onsubmit="return confirm('Bloklashga ishonchingiz komilmi?');">
+                        <button type="submit" class="edit"><i class="fas fa-ban"></i> Bloklash</button>
+                    </form>
+
+                    <!-- Activate -->
+                    <form th:if="${!user.active}" th:action="@{/current/user/activate/{id}(id=${user.id})}"
+                          method="post"
+                          onsubmit="return confirm('Faollashtirishga ishonchingiz komilmi?');">
+                        <button type="submit" class="view"><i class="fas fa-check-circle"></i> Faollashtirish</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination" th:if="${totalUserPages > 0}">
+            <a th:href="@{/control-page(userPage=${currentUserPage - 1})}"
+               th:classappend="${currentUserPage == 1} ? 'disabled'" aria-label="Oldingi sahifa">&laquo;</a><a
+                th:each="i : ${#numbers.sequence(1, totalUserPages)}"
+                th:href="@{/control-page(userPage=${i})}"
+                th:classappend="${i == currentUserPage} ? 'active'"
+                th:text="${i}" aria-label="Sahifa ${i}"></a>
+
+            <a th:href="@{/control-page(userPage=${currentUserPage + 1})}"
+               th:classappend="${currentUserPage == totalUserPages} ? 'disabled'"
+               aria-label="Keyingi sahifa">&raquo;</a>
+        </div>
+
+    </div>
+
+    <div id="books-table" class="table-container">
+        <h2 class="mt-3 text-center">Kitoblar</h2>
+        <div th:if="${bookCount == 0}" class="text-center text-gray-500">
+            <p>Hozirda kitoblar mavjud emas.</p>
+        </div>
+        <table th:if="${bookCount > 0}">
+            <thead>
+            <tr>
+                <th>N</th>
+                <th>Kitob nomi</th>
+                <th>Tavsifi</th>
+                <th>Kitob hajmi</th>
+                <th>Amal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book,status : ${books}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${book.name}">Kitob nomi</td>
+                <td th:text="${book.description}">Tavsifi</td>
+                <td th:text="${book.getFileSize()}">Kitob hajmi</td>
+                <td class="actions">
+                    <!-- Delete -->
+                    <form th:action="@{/book/delete/{id}(id=${book.id})}" method="post"
+                          onsubmit="return confirm('Kitobni o‘chirishga ishonchingiz komilmi?');">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="delete"><i class="fas fa-trash-alt"></i> O‘chirish</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination" th:if="${totalBookPages > 0}">
+            <a th:href="@{/control-page(bookPage=${currentBookPage - 1})}"
+               th:classappend="${currentBookPage == 1} ? 'disabled'" aria-label="Oldingi sahifa">&laquo;</a><a
+                th:each="i : ${#numbers.sequence(1, totalBookPages)}"
+                th:href="@{/control-page(bookPage=${i})}"
+                th:classappend="${i == currentBookPage} ? 'active'"
+                th:text="${i}" aria-label="Sahifa ${i}"></a>
+
+            <a th:href="@{/control-page(bookPage=${currentBookPage + 1})}"
+               th:classappend="${currentBookPage == totalBookPages} ? 'disabled'"
+               aria-label="Keyingi sahifa">&raquo;</a>
+        </div>
+
+    </div>
+
+    <div id="categories-table" class="table-container">
+        <h2 class="mt-3 text-center">Asosiy kategoriyalar</h2>
+        <a th:href="@{/category/get/page}" class="btn btn-success btn-sm">
+            <i class="fas fa-plus"></i> Kategoriya qo‘shish
+        </a>
+        <div th:if="${categoryCount == 0}" class="text-center text-gray-500">
+            <p>Hozirda asosiy kategoriya mavjud emas.</p>
+        </div>
+        <table th:if="${categoryCount > 0}">
+            <thead>
+            <tr>
+                <th>N</th>
+                <th>Kategoriya nomi</th>
+                <th>Kategoriya turi</th>
+                <th class="text-center">Amal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category,status : ${categories}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${category.name}">Kategoriya nomi</td>
+                <td th:text="${category.getCategoryType()}">Kategoriya turi</td>
+                <td class="text-center">
+                    <!-- Delete -->
+                    <form th:action="@{/auth/category/delete/{id}(id=${category.id})}" method="post" class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+                        <button type="submit" class="btn btn-danger btn-sm mx-1 btn-hover">
+                            <i class="fas fa-trash-alt"></i> Delete category
+                        </button>
+                    </form>
+
+                    <!-- Kitob qo‘shish -->
+                    <form th:action="@{/book/add/page/{id}(id=${category.id})}" method="get" class="d-inline">
+                        <button type="submit" class="btn btn-warning btn-sm mx-1 btn-hover">
+                            <i class="fas fa-book-medical"></i> Kitob qo‘shish
+                        </button>
+                    </form>
+
+                    <!-- Add Child Category -->
+                    <form th:action="@{/auth/add/{id}(id=${category.id})}" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-warning btn-sm mx-1 btn-hover">
+                            <i class="fas fa-sitemap"></i> Add Child Category
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination" th:if="${totalCategoryPage > 0}">
+            <a th:href="@{/control-page(categoryPage=${currentChildCategoryPage - 1})}"
+               th:classappend="${currentBookPage == 1} ? 'disabled'" aria-label="Oldingi sahifa">&laquo;</a><a
+                th:each="i : ${#numbers.sequence(1, totalCategoryPage)}"
+                th:href="@{/control-page(categoryPage=${i})}"
+                th:classappend="${i == currentChildCategoryPage} ? 'active'"
+                th:text="${i}" aria-label="Sahifa ${i}"></a>
+
+            <a th:href="@{/control-page(categoryPage=${currentChildCategoryPage + 1})}"
+               th:classappend="${currentChildCategoryPage == totalCategoryPage} ? 'disabled'"
+               aria-label="Keyingi sahifa">&raquo;</a>
+        </div>
+
+    </div>
+
+    <div id="child_categories-table" class="table-container">
+        <h2 class="mt-3 text-center">Ichki kategoriyalar</h2>
+        <div th:if="${childCategoryCount == 0}" class="text-center text-gray-500">
+            <p>Hozirda ichki kategoriya mavjud emas.</p>
+        </div>
+        <table th:if="${childCategoryCount > 0}">
+            <thead>
+            <tr>
+                <th>N</th>
+                <th>Kategoriya nomi</th>
+                <th class="text-center">Amal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category,status : ${childCategories}">
+                <td th:text="${status.index + 1}"></td>
+                <td th:text="${category.name}">Kategoriya nomi</td>
+                <td class="text-center">
+                    <!-- Delete -->
+                    <form th:action="@{/auth/category/child/delete/{id}(id=${category.id})}" method="post" class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this user?');">
+                        <button type="submit" class="btn btn-danger btn-sm mx-1 btn-hover">
+                            <i class="fas fa-trash-alt"></i> Delete category
+                        </button>
+                    </form>
+
+                    <!-- Kitob qo‘shish -->
+                    <form th:action="@{/book/add/page/{id}(id=${category.id})}" method="get" class="d-inline">
+                        <button type="submit" class="btn btn-warning btn-sm mx-1 btn-hover">
+                            <i class="fas fa-book-medical"></i> Kitob qo‘shish
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination" th:if="${totalChildCategoryPage > 0}">
+            <a th:href="@{/control-page(childCategoryPage=${currentChildCategoryPage - 1})}"
+               th:classappend="${currentBookPage == 1} ? 'disabled'" aria-label="Oldingi sahifa">&laquo;</a><a
+                th:each="i : ${#numbers.sequence(1, totalChildCategoryPage)}"
+                th:href="@{/control-page(childCategoryPage=${i})}"
+                th:classappend="${i == currentChildCategoryPage} ? 'active'"
+                th:text="${i}" aria-label="Sahifa ${i}"></a>
+
+            <a th:href="@{/control-page(childCategoryPage=${currentChildCategoryPage + 1})}"
+               th:classappend="${currentChildCategoryPage == totalChildCategoryPage} ? 'disabled'"
+               aria-label="Keyingi sahifa">&raquo;</a>
+        </div>
+
+    </div>
+</div>
+<script>
+    function updateTime() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        const formatted = `${day}.${month}.${year} | ${hours}:${minutes}:${seconds}`;
+        document.getElementById("datetime").textContent = formatted;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+<script>
+    function showTable(table) {
+        const usersBtn = document.querySelector('.toggle-btn:nth-child(1)');
+        const booksBtn = document.querySelector('.toggle-btn:nth-child(2)');
+        const categoriesBtn = document.querySelector('.toggle-btn:nth-child(3)');
+        const childCategoriesBtn = document.querySelector('.toggle-btn:nth-child(3)');
+
+        document.getElementById('users-table').style.display = table === 'users' ? 'block' : 'none';
+        document.getElementById('books-table').style.display = table === 'books' ? 'block' : 'none';
+        document.getElementById('categories-table').style.display = table === 'categories' ? 'block' : 'none';
+        document.getElementById('child_categories-table').style.display = table === 'child_categories' ? 'block' : 'none';
+
+        usersBtn.classList.toggle('active', table === 'users');
+        booksBtn.classList.toggle('active', table === 'books');
+        categoriesBtn.classList.toggle('active', table === 'categories');
+        childCategoriesBtn.classList.toggle('active', table === 'child_categories');
+    }
+
+    // Dastlab foydalanuvchilar jadvalini ko‘rsatish
+    showTable('users');
+</script>
+
+</body>
+</html>

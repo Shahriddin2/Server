@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uz" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiqish - eKutubxona</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #f2f6fc, #e0e7ff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            animation: fadeIn 0.7s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #4a69bd;
+            margin-bottom: 20px;
+        }
+
+        .user-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f1f3f6;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 2px solid #dee2e6;
+        }
+
+        .username {
+            font-size: 17px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .signout-btn, .signout-all {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .signout-btn {
+            background-color: #38ada9;
+        }
+
+        .signout-btn:hover {
+            background-color: #079992;
+            transform: scale(1.03);
+        }
+
+        .signout-all {
+            width: 100%;
+            background-color: #e55039;
+            margin-top: 10px;
+        }
+
+        .signout-all:hover {
+            background-color: #b71540;
+            transform: scale(1.03);
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+
+        @media screen and (max-width: 500px) {
+            .user-box {
+                flex-direction: column;
+            }
+
+            .signout-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📚 eKutubxonadan chiqish sahifasi</h2>
+
+    <!-- 🔹 Foydalanuvchi uchun chiqish qutisi -->
+    <div class="user-box">
+        <div class="user-info">
+            <span class="username" th:text="${username}">Foydalanuvchi</span>
+        </div>
+
+        <form action="/auth/logout" method="post">
+            <input type="hidden" name="username" th:value="${username}">
+            <button type="submit" class="signout-btn">Chiqish</button>
+        </form>
+    </div>
+
+    <!-- 🔹 Barcha qurilmalardan chiqish -->
+    <form action="/auth/logout/account" method="post">
+        <button type="submit" class="signout-all">🔒 Barcha qurilmalardan chiqish</button>
+    </form>
+
+    <div class="footer">
+        <p>eKutubxonadan foydalanganingiz uchun tashakkur! 😊</p>
+    </div>
+</div>
+
+</body>
+</html>

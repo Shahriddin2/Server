@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Sahifasi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('https://thecollegeinvestor.com/wp-content/uploads/2018/09/WP_onlinetutor.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #1A285A;
+            outline: none;
+            box-shadow: 0 0 5px rgba(26, 40, 90, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #1A285A;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #14204E;
+            transform: scale(1.05);
+        }
+
+        .forgot-password, .register-link {
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .forgot-password a, .register-link a {
+            color: #1A285A;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .forgot-password a:hover, .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* 📌 Planshet va kichikroq ekranlar uchun */
+        @media (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+        /* 📌 Telefonlar uchun */
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
+                padding: 15px;
+                border-radius: 10px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .input-group input {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        .message {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .error {
+            background-color: #ffdddd;
+            color: #a94442;
+            border: 1px solid #e6b4b4;
+        }
+
+        .success {
+            background-color: #ddffdd;
+            color: #3c763d;
+            border: 1px solid #b4e6b4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Kirish</h2>
+
+    <!-- Xatolik xabari -->
+    <div th:if="${session.errorMessage}" class="message error">
+        <p th:text="${session.errorMessage}"></p>
+    </div>
+
+    <!-- Bayramona tabrik -->
+    <div th:if="${session.errorMessage}" class="message success">
+        🥳 <strong th:text="${session.successMessage}">Tabriklaymiz! Siz muvaffaqiyatli tizimga kirdingiz!</strong> 🎉
+    </div>
+
+    <form action="/auth/login" method="POST">
+        <div class="input-group">
+            <label for="username">Foydalanuvchi nomi</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div class="input-group">
+            <label for="password">Parol</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <button type="submit" class="btn">Kirish</button>
+    </form>
+
+    <div class="forgot-password">
+        <a href="/password/reset">Parolni unutdingizmi?</a>
+    </div>
+    <div class="register-link">
+        <a href="/auth/register">Ro‘yxatdan o‘tish</a>
+    </div>
+</div>
+
+<script>
+    // Xabarlarni avtomatik yashirish (3 sekunddan keyin)
+    setTimeout(function () {
+        document.querySelectorAll('.message').forEach(function (el) {
+            el.style.display = 'none';
+        });
+    }, 3000);
+</script>
+
+</body>
+</html>

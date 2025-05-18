@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eKutubxona - Xatolik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 64px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .back-home {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #3498db;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-home:hover {
+            background-color: #2980b9;
+        }
+
+        .error-icon {
+            font-size: 100px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <div class="error-icon">⚠️</div>
+    <h1>😞 Afsuski, muammo yuz berdi</h1>
+    <p class="error-message" th:text="${session.errorMessage}"></p>
+    <p class="error-message" th:text="${session.errorDetails}"></p>
+    <a href="/" class="back-home">Asosiy sahifaga qaytish</a>
+</div>
+</body>
+</html>

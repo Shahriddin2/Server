@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eKutubxona</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5ece4;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 40px 60px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .nav-actions a {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            border: 1px solid #333;
+        }
+        .btn-register {
+            background: #333;
+            color: #fff;
+            border: none;
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .text-side {
+            max-width: 500px;
+        }
+        .text-side span {
+            display: inline-block;
+            font-size: 14px;
+            color: #d98f64;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .text-side h1 {
+            font-size: 36px;
+            margin: 10px 0;
+            color: #111;
+            line-height: 1.2;
+        }
+        .text-side p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .image-side img {
+            max-width: 450px;
+            width: 100%;
+            border-radius: 12px;
+        }
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .image-side {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <div class="navbar">
+        <div class="logo">eKutubxona</div>
+        <div class="nav-links">
+            <a href="#">Bosh sahifa</a>
+            <a href="#">Kitoblar</a>
+            <a href="#">Hamjamiyat</a>
+            <a href="#">Biz haqimizda</a>
+        </div>
+        <div class="nav-actions">
+            <!-- Link to your existing login page -->
+            <a href="/auth/login" class="btn-signin">Kirish</a>
+            <!-- Link to your existing register page -->
+            <a href="/auth/register" class="btn-register">Ro'yxatdan o'tish</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="text-side">
+            <span>📚 Bugun o'qishni boshlang</span>
+            <h1>Har bir sahifa<br>yangi sarguzashtdir</h1>
+            <p>Kitob o'qib siz tasavvur va bilim dunyosiga sayohat qilasiz. Har bir bobda o'zingiz uchun yangiliklarni kashf eting!</p>
+        </div>
+        <div class="image-side">
+            <img src="https://avatars.mds.yandex.net/i?id=a833f6112b054fdaa7e791ef60b19eac1bd1f779-5496468-images-thumbs&n=13" alt="O'g'il bola kitob o'qiyapti">
+        </div>
+    </div>
+</div>
+</body>
+</html>

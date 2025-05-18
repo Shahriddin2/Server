@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yangi Kategoriya Qo'shish</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://pbs.twimg.com/media/DqDglX_WoAAsy9s.jpg') no-repeat center center fixed;
+            background-size: 100% 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 10px;
+        }
+        .category-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .category-container h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 10px;
+            background-color: #1A285A;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+        .btn-custom:hover {
+            transform: scale(1.1); /* Tugma markazidan kattalashadi */
+            background-color: #1A285A;
+            color: white; /* Matn rangi oq qoladi */
+        }
+        .btn:hover, .btn:active {
+            transform: scale(1.1); /* Tugma markazidan kattalashadi */
+            background-color: #1A285A;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .message.error {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .message.success {
+            background-color: #4caf50;
+            color: white;
+        }
+        .back-link {
+            margin-top: 15px;
+        }
+        .back-link a {
+            text-decoration: none;
+            color: #2575fc;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media queries: Mobil ekranlar uchun */
+        @media (max-width: 768px) {
+            .category-container {
+                width: 90%;
+                padding: 20px;
+            }
+            .btn-custom {
+                font-size: 14px;
+                padding: 8px;
+            }
+            body {
+                background-size: cover;
+                height: auto;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="category-container">
+    <h2>Kategoriya Qo'shish</h2>
+
+    <!-- Xatolik xabari -->
+    <div th:if="${errorMessage}" class="message error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Muvaffaqiyatli xabar -->
+    <div th:if="${successMessage}" class="message success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <form method="POST" action="/create/category">
+        <div class="form-group">
+            <label for="name">Kategoriya nomi:</label>
+            <input type="text" id="name" name="name" class="form-control" >
+        </div>
+
+        <!-- Category Type Select -->
+        <div class="form-group">
+            <label for="categoryType">Kategoriya turi:</label>
+            <select id="categoryType" name="categoryType" class="form-control" required>
+                <option value="SCIENCE">Ilm-fan</option>
+                <option value="ART">San'at</option>
+                <option value="LITERATURE">Adabiyot</option>
+                <option value="HISTORY">Tarix</option>
+                <option value="TECHNOLOGY">Texnologiya</option>
+                <option value="BIOGRAPHY">Biografiya</option>
+                <option value="FANTASY">Fantastika</option>
+                <option value="MYSTERY">Detektiv</option>
+                <option value="THRILLER">Triller</option>
+                <option value="ROMANCE">Roman</option>
+                <option value="PROGRAMMING">Dasturlash</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-custom">Kategoriya Qo‘shish</button>
+    </form>
+
+    <div class="back-link">
+        <a href="/admin/page-get">Ortga qaytish</a>
+    </div>
+</div>
+
+<script>
+    // Xabarlarni avtomatik yashirish (3 sekunddan keyin)
+    setTimeout(function() {
+        document.querySelectorAll('.message').forEach(function(el) {
+            el.style.display = 'none';
+        });
+    }, 3000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saralangan Kitoblar</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 1.25rem;
+      color: #718096;
+      margin-top: 60px;
+    }
+
+    .book-card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .heart-button {
+      color: #ef4444;
+      transition: color 0.3s ease;
+    }
+
+    .heart-button:hover {
+      color: #dc2626;
+    }
+
+    .open-btn, .download-btn {
+      background-color: #2563eb;
+      color: white;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .open-btn:hover, .download-btn:hover {
+      background-color: #1e40af;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 via-white to-white min-h-screen">
+
+<!-- Saralangan Kitoblar sahifasi -->
+<div class="container mx-auto mt-10 p-6">
+  <h2 class="text-4xl font-bold text-center text-blue-800 mb-10 tracking-wide">♡ Saralangan Kitoblar</h2>
+
+  <!-- Agar kitoblar mavjud bo'lmasa -->
+  <div id="no-books-message" class="empty-message hidden">
+    <p class="text-lg">Siz hali hech qanday kitobni saralamagansiz.</p>
+    <p class="mt-2 text-gray-500">Saralash uchun kitob yonidagi ♡ tugmasini bosing. <br> Akkauntga kirgan holda ular saqlanib qoladi.</p>
+    <a href="/user/page-get" class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition">
+      ⬅ Bosh sahifa
+    </a>
+  </div>
+
+  <!-- Kitoblar Grid -->
+  <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-6">
+    <div th:each="book : ${books}" class="book-card overflow-hidden">
+      <!-- ❤️ Yurakcha -->
+      <form th:action="@{/saved/book/delete/{id}(id=${book.id})}" method="post" class="absolute top-3 right-3 z-10">
+        <button type="submit" class="heart-button text-xl">♡</button>
+      </form>
+
+      <!-- Rasm -->
+      <div class="flex justify-center">
+        <img th:src="@{/images/{coverFileName}(coverFileName=${book.coverFileGeneratedName})}" alt="Book Image"
+             class="w-full h-40 object-cover rounded-t-xl">
+      </div>
+
+      <!-- Ma'lumotlar -->
+      <div class="p-4">
+        <h3 class="text-lg font-semibold text-gray-800 truncate mb-1" th:text="${book.name}">Kitob nomi</h3>
+        <p class="text-gray-600 text-sm mb-3 line-clamp-2" th:text="${book.description}">Description</p>
+        <p class="text-gray-500 text-xs">Hajmi:
+          <span th:text="${#numbers.formatDecimal(book.getFileSize() / (1024.0 * 1024.0), 1, 2)}">0</span> MB
+        </p>
+
+        <!-- Tugmalar -->
+        <div class="flex justify-between items-center mt-4">
+          <form th:action="@{/book/open/{fileName}(fileName=${book.getFileGeneratedName()})}" method="get" target="_blank">
+            <button type="submit" class="open-btn">Ochish</button>
+          </form>
+
+          <form th:action="@{/book/{fileName}(fileName=${book.getFileGeneratedName()})}" method="get">
+            <button type="submit" class="download-btn">Yuklab olish ⬇</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dinamik holat uchun JS -->
+<script>
+  const booksGrid = document.getElementById('books-grid');
+  const noBooksMessage = document.getElementById('no-books-message');
+
+  if (booksGrid.children.length === 0) {
+    booksGrid.classList.add('hidden');
+    noBooksMessage.classList.remove('hidden');
+  }
+</script>
+
+</body>
+</html>

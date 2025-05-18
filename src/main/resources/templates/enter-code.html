@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ro'yxatdan o'tish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('https://thecollegeinvestor.com/wp-content/uploads/2018/09/WP_onlinetutor.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .register-container {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 400px; /* Limiting the maximum width */
+            margin: 10px; /* Ensure some space around the container */
+        }
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .message {
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .error {
+            background-color: #f8d7da;
+            width: 95%;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .success {
+            background-color: #d4edda;
+            width: 95%;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .input-group input {
+            width: 94%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #1A285A;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .btn:hover, .btn:active {
+            transform: scale(1.1);
+            background-color: #1A285A;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .login-link a {
+            color: black;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 600px) {
+            .register-container {
+                width: 90%; /* On smaller screens, take up most of the width */
+            }
+            .input-group input {
+                font-size: 14px; /* Smaller input field font on mobile */
+            }
+            .btn {
+                font-size: 14px; /* Smaller button font on mobile */
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 992px) {
+            .register-container {
+                width: 80%; /* On medium-sized screens, take up 80% of the width */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h2>Ro'yxatdan o'tish</h2>
+
+    <!-- Xatolik xabari -->
+    <div th:if="${errorMessage}" class="message error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Muvaffaqiyatli xabar -->
+    <div th:if="${successMessage}" class="message success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <form method="POST" action="/password/changed">
+        <div class="input-group">
+            <label for="code">Emailga yuborilgan kod:</label>
+            <input type="text" id="code" name="code">
+        </div>
+        <div class="input-group">
+            <label for="newPassword">Yangi parol:</label>
+            <input type="password" id="newPassword" name="newPassword">
+        </div>
+        <div class="input-group">
+            <label for="confirmPassword">Qayta kiriting:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+        </div>
+        <button type="submit" class="btn">Parolni O‘rnatish</button>
+    </form>
+
+    <div class="login-link">
+        <a href="/auth/login">Kirish</a>
+    </div>
+</div>
+
+<script>
+    // Xabarlarni avtomatik yashirish (2 sekunddan keyin)
+    setTimeout(function() {
+        document.querySelectorAll('.message').forEach(function(el) {
+            el.style.display = 'none';
+        });
+    }, 3000);
+</script>
+
+</body>
+</html>

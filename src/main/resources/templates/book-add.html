@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitob qo‘shish</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url('https://miro.medium.com/v2/resize:fit:1358/1*jyLd3i190QfR3hqm5_0ElQ.png'); /* Orqa fon rasmi */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .error {
+            background-color: #ffdddd;
+            color: #a94442;
+            border: 1px solid #e6b4b4;
+        }
+
+        .success {
+            background-color: #ddffdd;
+            color: #3c763d;
+            border: 1px solid #b4e6b4;
+        }
+
+        @media (max-width: 600px) {
+            form, .message {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Xatolik xabari -->
+<div th:if="${errorMessage}" class="message error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<!-- Muvaffaqiyatli xabar -->
+<div th:if="${successMessage}" class="message success">
+    <p th:text="${successMessage}"></p>
+</div>
+
+<h2 style="text-align:center; color: #0c0b0b">Yangi kitob qo‘shish</h2>
+
+<form action="/book/upload" method="post" enctype="multipart/form-data">
+    <label for="name">Kitob nomi:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="description">Tavsifi:</label>
+    <textarea id="description" name="description" ></textarea>
+
+    <label for="coverFile">Muqova fayli (rasm):</label>
+    <input type="file" id="coverFile" name="coverFile" accept="image/*" required>
+
+    <label for="bookFile">Kitob fayli (PDF, DOCX, TXT...):</label>
+    <input type="file" id="bookFile" name="bookFile"
+           accept=".pdf,.doc,.docx,.txt,.epub,.mobi,.rtf,.odt" required>
+
+    <button type="submit">Qo‘shish</button>
+</form>
+
+<script>
+    // 3 soniyadan so‘ng xabarlarni yashirish
+    setTimeout(function() {
+        document.querySelectorAll('.message').forEach(function(el) {
+            el.style.display = 'none';
+        });
+    }, 3000);
+</script>
+
+</body>
+</html>

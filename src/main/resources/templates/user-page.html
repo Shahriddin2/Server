@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Kutubxona Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html, body {
+            height: 100%;
+            min-height: 100vh;
+            background-color: #f7fafc;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        :root {
+            --primary-bg: rgb(255, 255, 255);
+            --secondary-bg: rgba(30, 64, 175, 0.8);
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --text-dark: #000000;
+            --text-light: #ffffff;
+            --button-green: #047857;
+            --button-blue: #1e3a8a;
+            --button-purple: #6d28d9;
+            --button-red: #b91c1c;
+        }
+
+        body {
+            background-color: #f7fafc;
+        }
+
+        .btn {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn:hover, .btn:active {
+            transform: scale(1.05);
+        }
+
+        p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .container {
+            max-width: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 50px;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        /* Tugma effektlari */
+        .download-btn {
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .download-btn:hover {
+            animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-5px); }
+            50% { transform: translateY(0); }
+            75% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Kichik Open tugmasi */
+        .open-btn {
+            font-size: 14px;
+            padding: 8px 16px;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .open-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* Kitob kartochkasi */
+        .book-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body class="text-black">
+
+<div class="container mx-auto p-4 md:p-6 bg-white rounded-lg shadow-lg">
+
+    <!-- HEADER -->
+    <header class="flex justify-between items-center py-4">
+        <button id="menu-btn" class="text-3xl focus:outline-none ml-2">&#9776;</button>
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-center flex-grow">📚 e-Kutubxona</h1>
+        <!-- Search Form -->
+        <form action="/book/search" method="get" class="hidden sm:flex w-1/3">
+            <input type="text" name="query" id="search" placeholder="Qidirish..." class="p-2 text-black rounded-md w-full border border-gray-300 focus:ring-2 focus:ring-blue-500">
+        </form>
+    </header>
+
+    <!-- 📚 Kategoriya Bo‘limi -->
+    <section class="mt-16 px-4">
+        <!-- Sarlavha va tugmalar -->
+        <div class="relative mb-10">
+            <!-- Tugmalar chapda -->
+            <div class="absolute left-0 flex gap-4">
+                <a href="#" class="w-32 h-8 bg-teal-500 text-white text-sm rounded-lg shadow hover:bg-teal-600 transition flex items-center justify-center">
+                    🛒 Sotuvda
+                </a>
+                <a href="#" class="w-32 h-8 bg-rose-500 text-white text-sm rounded-lg shadow hover:bg-rose-600 transition flex items-center justify-center">
+                    💸 Chegirma
+                </a>
+                <form action="/saved/books" method="get">
+                    <button type="submit" class="w-32 h-8 bg-pink-400 text-white text-sm rounded-lg shadow hover:bg-pink-500 transition flex items-center justify-center">
+                        ♡ Saralangan
+                    </button>
+                </form>
+               <!-- <form action="/categories" method="get">
+                    <button type="submit" class="w-32 h-8 bg-cyan-500 text-white text-sm rounded-lg shadow hover:bg-cyan-600 transition flex items-center justify-center">
+                        📂 Kategoriyalar
+                    </button>
+                </form>-->
+
+            </div>
+
+            <!-- Sarlavha markazda -->
+            <h2 class="text-3xl font-bold text-center text-gray-800">
+                📂 Kategoriyalar
+            </h2>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+            <!-- Kategoriya kartasi shabloni -->
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">📖</div>
+                <h3 class="font-semibold text-lg text-gray-800">Tarix</h3>
+                <p class="text-sm text-gray-500">O‘tmishga sayohat</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">🔬</div>
+                <h3 class="font-semibold text-lg text-gray-800">Ilmiy</h3>
+                <p class="text-sm text-gray-500">Fan va kashfiyotlar</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">📚</div>
+                <h3 class="font-semibold text-lg text-gray-800">Adabiyot</h3>
+                <p class="text-sm text-gray-500">She’r va romanlar</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">🕌</div>
+                <h3 class="font-semibold text-lg text-gray-800">Diniy</h3>
+                <p class="text-sm text-gray-500">Islomiy kitoblar</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">👶</div>
+                <h3 class="font-semibold text-lg text-gray-800">Bolalar</h3>
+                <p class="text-sm text-gray-500">Erkatoylar uchun</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">🎨</div>
+                <h3 class="font-semibold text-lg text-gray-800">Badiiy</h3>
+                <p class="text-sm text-gray-500">Ijodiy asarlar</p>
+            </a>
+
+            <!-- Qo‘shimcha kengaytirilgan kategoriyalar -->
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">🧠</div>
+                <h3 class="font-semibold text-lg text-gray-800">Psixologiya</h3>
+                <p class="text-sm text-gray-500">Ruhshunoslik asarlari</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">🏛️</div>
+                <h3 class="font-semibold text-lg text-gray-800">Siyosat</h3>
+                <p class="text-sm text-gray-500">Davlat va siyosat</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">🚀</div>
+                <h3 class="font-semibold text-lg text-gray-800">Motivatsiya</h3>
+                <p class="text-sm text-gray-500">O‘z ustingda ishlash</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">👤</div>
+                <h3 class="font-semibold text-lg text-gray-800">Biografiya</h3>
+                <p class="text-sm text-gray-500">Mashhurlar hayoti</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">💻</div>
+                <h3 class="font-semibold text-lg text-gray-800">Texnologiya</h3>
+                <p class="text-sm text-gray-500">Zamonaviy IT va texnika</p>
+            </a>
+
+            <a href="#" class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 text-center border">
+                <div class="text-5xl mb-3">😂</div>
+                <h3 class="font-semibold text-lg text-gray-800">Kulgi</h3>
+                <p class="text-sm text-gray-500">Hazil va latifalar</p>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- SIDEBAR -->
+    <nav id="sidebar" class="fixed left-0 top-0 w-64 h-full bg-white text-[var(--text-dark)] shadow-lg transform -translate-x-full transition-transform duration-300 p-4 z-50">
+        <!-- Flex container for the menu header and close button -->
+        <div class="flex justify-between items-center mb-6">
+            <!-- Menu heading -->
+            <h2 class="text-2xl font-semibold text-gray-800">Menyu</h2>
+
+            <!-- Close button -->
+            <button id="close-btn" class="text-xl focus:outline-none text-gray-600 hover:text-black p-1">
+                &#10006;
+            </button>
+
+        </div>
+
+        <hr class="my-4 border-t border-gray-300">
+
+        <div class="mt-4 space-y-4">
+            <form >
+                <button type="submit" class="flex items-center p-3 rounded hover:bg-gray-200 transition w-full text-left">
+                    <span class="text-2xl">👤</span>
+                    <span class="ml-2">Profil</span>
+                </button>
+            </form>
+            <form >
+                <button type="submit" class="flex items-center p-3 rounded hover:bg-gray-200 transition w-full text-left">
+                    <span class="text-2xl">⚙️</span>
+                    <span class="ml-2">Sozlamalar</span>
+                </button>
+            </form>
+            <form action="#" method="GET">
+                <button type="submit" class="flex items-center p-3 rounded hover:bg-gray-200 transition w-full text-left">
+                    <span class="text-2xl">🤖</span>
+                    <span class="ml-2">eKutubxona support</span>
+                </button>
+            </form>
+            <form action="/auth/logout-page" method="GET">
+                <button type="submit" class="flex items-center p-3 text-red-600 rounded hover:bg-gray-200 transition w-full text-left">
+                    <span class="text-2xl">➡️</span>
+                    <span class="ml-2">Chiqish</span>
+                </button>
+            </form>
+        </div>
+    </nav>
+
+
+    <!-- Kitoblar Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+        <div th:each="book : ${session.books}" class="book-card bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
+            <!-- ❤️ Yurakcha belgi tugmasi -->
+            <form th:action="@{/saved/book/{id}(id=${book.id})}" method="post" class="absolute top-2 right-2">
+                <button type="submit" class="heart-button text-gray-400 hover:text-red-500 text-xl transition">♡</button>
+            </form>
+            <div class="flex justify-center">
+                <!-- Rasmni dinamik tarzda chiqarish -->
+                <img th:src="@{/images/{coverFileName}(coverFileName=${book.coverFileGeneratedName})}"
+                     alt="Book Image" class="w-full h-36 object-cover rounded-t-lg mb-4">
+            </div>
+            <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800 truncate" th:text="${book.name}">Kitob nomi</h3>
+                <p class="text-gray-600 text-sm mt-2 mb-4 truncate" th:text="${book.description}">Description</p>
+                <!-- Display Book Size -->
+                <p class="text-gray-500 text-sm">Size: <span th:text="${#numbers.formatDecimal(book.getFileSize() / (1024.0 * 1024.0), 1, 2)}">0</span> MB</p>
+
+
+                <div class="flex justify-between mt-4">
+                    <form th:action="@{/book/open/{fileName}(fileName=${book.getFileGeneratedName()})}" method="get" target="_blank">
+                        <button class="open-btn" type="submit">Ochish</button>
+                    </form>
+
+                    <form th:action="@{/book/{fileName}(fileName=${book.getFileGeneratedName()})}" method="get">
+                        <button class="download-btn">
+                            ⬇️
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+    document.getElementById("menu-btn").addEventListener("click", function() {
+        document.getElementById("sidebar").classList.remove("-translate-x-full");
+    });
+    document.getElementById("close-btn").addEventListener("click", function() {
+        document.getElementById("sidebar").classList.add("-translate-x-full");
+    });
+
+    document.getElementById("toggle-functions").addEventListener("click", function() {
+        const functionsList = document.getElementById("functions-list");
+        functionsList.classList.toggle("hidden");
+    });
+</script>
+
+
+</body>
+</html>
